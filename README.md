@@ -1,4 +1,17 @@
-# LIV360SV 
+# LIV360SV
+
+https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
+
+Generate requirements.txt with packages:
+`py -m pip freeze > requirements.txt`
+
+On Windows Command Prompt:
+`py -3 -m venv virtual-env`
+`virtual-env\Scripts\activate`
+`py -m pip install -r requirements.txt`
+
+When you want to desactive the environment:
+`virtual-env\Scripts\deactivate.bat`
 
 We present a workflow for extracting and classifying advertisements located
 within street level images. We use a seamless scene segmentation network to
@@ -7,20 +20,20 @@ subsequently classify the extracted advertisements we train a Inception-V3 to di
 
 ## Dependencies
 
-* [TensorFlow](https://www.tensorflow.org/install)
-* [Jupyter Notebook](https://jupyter.org/)
-* [Pandas](https://pandas.pydata.org/)
+- [TensorFlow](https://www.tensorflow.org/install)
+- [Jupyter Notebook](https://jupyter.org/)
+- [Pandas](https://pandas.pydata.org/)
 
 ## Data
 
 ### The Liverpool 360 Street View Dataset
 
-While there exists an abundance of street-level imagery on platforms such as Google Street View, the recently imposed costs for using Google's API, as well as cases of Google updating terms and conditions to hinder researchers, highlights the need for alternative open sourced solutions. 
-Existing open and crowd sourced street-level images predominately lack the quality of the interactive panoramas found on services such as Google Street View. Images are frequently recorded using dashboard cameras, and as a result have a restricted field of vision. Motivated by these factors we record an open street-level dataset for Liverpool, using a GoPro Fusion 360 camera attached to a member of the team ([Mark Green](https://scholar.google.com/citations?user=_9XrEoIAAAAJ&hl=en&oi=ao)) who cycled along major roads. We follow Mapillary's [recommendations](https://help.mapillary.com/hc/en-us/articles/360026122412-GoPro-Fusion-360) for recording street-level images. The camera records front and back images at 0.5 second interval, which we later stitch together using GoPro Fusion Studio. To date our dataset consists of 26,645 street-level images each with GPS location recorded. We illustrate the current coverage of the LIV360SV dataset in below. 
+While there exists an abundance of street-level imagery on platforms such as Google Street View, the recently imposed costs for using Google's API, as well as cases of Google updating terms and conditions to hinder researchers, highlights the need for alternative open sourced solutions.
+Existing open and crowd sourced street-level images predominately lack the quality of the interactive panoramas found on services such as Google Street View. Images are frequently recorded using dashboard cameras, and as a result have a restricted field of vision. Motivated by these factors we record an open street-level dataset for Liverpool, using a GoPro Fusion 360 camera attached to a member of the team ([Mark Green](https://scholar.google.com/citations?user=_9XrEoIAAAAJ&hl=en&oi=ao)) who cycled along major roads. We follow Mapillary's [recommendations](https://help.mapillary.com/hc/en-us/articles/360026122412-GoPro-Fusion-360) for recording street-level images. The camera records front and back images at 0.5 second interval, which we later stitch together using GoPro Fusion Studio. To date our dataset consists of 26,645 street-level images each with GPS location recorded. We illustrate the current coverage of the LIV360SV dataset in below.
 
-We focused on sampling three areas of Liverpool with varying contexts over three different days: (1) City Centre (Jan 14th 2020) - areas characterised by shops and services; (2) North Liverpool (Jan 15th 2020) - areas contain high levels of deprivation; (3) South Liverpool (Jan 18th 2020) - areas include a mixture of affluent populations and diverse ethnic groups. We have uploaded our street level images to Mapillary, which can be viewed [here](https://www.mapillary.com/app/org/gdsl_uol?lat=53.39&lng=-2.9&z=11.72&tab=uploads). The images can be downloaded with [Mapillary Tools](https://github.com/mapillary/mapillary_tools) using the following command: 
+We focused on sampling three areas of Liverpool with varying contexts over three different days: (1) City Centre (Jan 14th 2020) - areas characterised by shops and services; (2) North Liverpool (Jan 15th 2020) - areas contain high levels of deprivation; (3) South Liverpool (Jan 18th 2020) - areas include a mixture of affluent populations and diverse ethnic groups. We have uploaded our street level images to Mapillary, which can be viewed [here](https://www.mapillary.com/app/org/gdsl_uol?lat=53.39&lng=-2.9&z=11.72&tab=uploads). The images can be downloaded with [Mapillary Tools](https://github.com/mapillary/mapillary_tools) using the following command:
 
-``` 
+```
 mapillary_tools download --advanced --by_property key \
 --import_path dev/null \ --output_folder './LIV360SV' \
 --organization_keys 'I8xRsrajuHHQRf6cdDgDi5' \
@@ -36,7 +49,6 @@ md5sum: d556dc5bcbda3aa4d67160ee44bf8cdb
 [manc.zip](https://drive.google.com/file/d/1q__975pcQk0DIVTK_JjGy3SxKnmTtZaj/view?usp=sharing)<br>
 Filesize: 4.1 GB <br>
 md5sum: 15716beaecd1968c2860d403558996e4
-
 
 [LIV360SV_Ads_with_less_duplicates.zip](https://drive.google.com/file/d/1IT_YZGEw7Znc9FwkHvt9jgPWV-gdPFNb/view?usp=sharing)
 Filesize: 803 MB <br>
@@ -54,13 +66,13 @@ For extracting advertisements from street level images we use the seamless scene
 
 https://github.com/mapillary/seamseg
 
-``` 
-python3 -m torch.distributed.launch --nproc_per_node=1 ./scripts/test_panoptic.py --meta ./data/metadata.bin ./data/config.ini ./data/seamseg_r50_vistas.tar ./LIV360SV ./Segmentations --raw    
-``` 
+```
+python3 -m torch.distributed.launch --nproc_per_node=1 ./scripts/test_panoptic.py --meta ./data/metadata.bin ./data/config.ini ./data/seamseg_r50_vistas.tar ./LIV360SV ./Segmentations --raw
+```
 
 ### Extraction & Preprocessing
 
-Upon identifying the location of an advertisement, we obtain a one hot mask with a filled convex hull using [OpenCV's](https://opencv.org/) find and draw contours functionalities. The masks allow us to extract individual advertisements from the original input images. With the remaining content having been masked out during the extraction step we subsequently crop the images. However, given that the final step of our workflow is to pass the extracted items to a classifier trained on advertisement images with a frontal view, we use a [Spatial Transformation Network (STN)](https://arxiv.org/pdf/1506.02025.pdf) to transform the extracted items, the majority of which were recorded from a non-frontal view.  
+Upon identifying the location of an advertisement, we obtain a one hot mask with a filled convex hull using [OpenCV's](https://opencv.org/) find and draw contours functionalities. The masks allow us to extract individual advertisements from the original input images. With the remaining content having been masked out during the extraction step we subsequently crop the images. However, given that the final step of our workflow is to pass the extracted items to a classifier trained on advertisement images with a frontal view, we use a [Spatial Transformation Network (STN)](https://arxiv.org/pdf/1506.02025.pdf) to transform the extracted items, the majority of which were recorded from a non-frontal view.
 
 To extract and pre-process the images run:
 
@@ -74,7 +86,6 @@ We classify extracted advertisements using Keras'
 [Inception-V2](https://keras.io/applications/) implementation. The network is
 trained using manually labelled extracted samples augmented with the scraped
 images dataset. To train Inception-V3:
-
 
 ```
 jupyter notebook classifier.ipynb
@@ -92,13 +103,10 @@ training data (albeit `fake data') for model training. To date we can show that
 advertisements can be successfully integrated into street-level images. We place
 the advertisement using a STN to transform the image to a target shape. Finally
 we train GANs to realistically embed the images. We provide examples of our
-placed advertisements in the following zip file. 
+placed advertisements in the following zip file.
 We hypothesize that augmenting our collected street view data with these
 secondary GANs created data will enable the training of an effective model.
 
 [Placed_Ads_Using_GANs.zip](https://drive.google.com/file/d/1ETk7dgpuQN_ph3vP0X99EHFAiBjKeFoy/view?usp=sharing)<br>
 Filesize: 2.7 MB <br>
 md5sum: b2b2f0e04814fc363d24a86009ca40bb
-
-
- 
