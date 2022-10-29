@@ -1,17 +1,30 @@
-# LIV360SV
+# LIV360SV - Jose Andrés Mejías Rojas
 
-https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
+## Run the project
 
-Generate requirements.txt with packages:
-`py -m pip freeze > requirements.txt`
+### Windows Command Prompt
 
-On Windows Command Prompt:
-`py -3 -m venv virtual-env`
-`virtual-env\Scripts\activate`
-`py -m pip install -r requirements.txt`
+```
+py -3 -m venv virtual-env
+virtual-env\Scripts\activate
+py -m pip install -r requirements.txt
+```
 
-When you want to desactive the environment:
-`virtual-env\Scripts\deactivate.bat`
+## Other options
+
+### Desactive the environment
+
+```
+virtual-env\Scripts\deactivate.bat
+```
+
+### Generate requirements.txt with the required packages
+
+```
+py -m pip freeze > requirements.txt
+```
+
+# Original documentation
 
 We present a workflow for extracting and classifying advertisements located
 within street level images. We use a seamless scene segmentation network to
@@ -33,11 +46,13 @@ Existing open and crowd sourced street-level images predominately lack the quali
 
 We focused on sampling three areas of Liverpool with varying contexts over three different days: (1) City Centre (Jan 14th 2020) - areas characterised by shops and services; (2) North Liverpool (Jan 15th 2020) - areas contain high levels of deprivation; (3) South Liverpool (Jan 18th 2020) - areas include a mixture of affluent populations and diverse ethnic groups. We have uploaded our street level images to Mapillary, which can be viewed [here](https://www.mapillary.com/app/org/gdsl_uol?lat=53.39&lng=-2.9&z=11.72&tab=uploads). The images can be downloaded with [Mapillary Tools](https://github.com/mapillary/mapillary_tools) using the following command:
 
-```
+````
+
 mapillary_tools download --advanced --by_property key \
 --import_path dev/null \ --output_folder './LIV360SV' \
 --organization_keys 'I8xRsrajuHHQRf6cdDgDi5' \
 --user_name '<Insert Mapillary Username>'
+
 ```
 
 To date we have identified 10,106 advertisements within these data, manually classified as food (1335), alcohol (217), gambling (149) and other (8405). Download the dataset as a .zip archive from:
@@ -67,7 +82,9 @@ For extracting advertisements from street level images we use the seamless scene
 https://github.com/mapillary/seamseg
 
 ```
+
 python3 -m torch.distributed.launch --nproc_per_node=1 ./scripts/test_panoptic.py --meta ./data/metadata.bin ./data/config.ini ./data/seamseg_r50_vistas.tar ./LIV360SV ./Segmentations --raw
+
 ```
 
 ### Extraction & Preprocessing
@@ -77,7 +94,9 @@ Upon identifying the location of an advertisement, we obtain a one hot mask with
 To extract and pre-process the images run:
 
 ```
+
 python3 preprocess.py
+
 ```
 
 ### Classification
@@ -88,7 +107,9 @@ trained using manually labelled extracted samples augmented with the scraped
 images dataset. To train Inception-V3:
 
 ```
+
 jupyter notebook classifier.ipynb
+
 ```
 
 ## Future Work: Using GANs to embed advertisements into SV images
@@ -110,3 +131,5 @@ secondary GANs created data will enable the training of an effective model.
 [Placed_Ads_Using_GANs.zip](https://drive.google.com/file/d/1ETk7dgpuQN_ph3vP0X99EHFAiBjKeFoy/view?usp=sharing)<br>
 Filesize: 2.7 MB <br>
 md5sum: b2b2f0e04814fc363d24a86009ca40bb
+```
+````
