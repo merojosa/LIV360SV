@@ -2,11 +2,19 @@
 
 ## Install dependencies
 
-### Windows Command Prompt
+### Bash (Windows)
+
+You have to install `virtualenv`
 
 ```
-py -3 -m venv virtual-env
-virtual-env\Scripts\activate
+pip install virtualenv
+```
+
+Then, run the following commands:
+
+```bash
+py -m virtualenv virtual-env
+source virtual-env/Scripts/activate
 py -m pip install -r requirements.txt
 ```
 
@@ -17,7 +25,7 @@ py -m pip install -r requirements.txt
 ### Desactive the environment
 
 ```
-virtual-env\Scripts\deactivate.bat
+deactivate
 ```
 
 ### Generate requirements.txt with the required packages
