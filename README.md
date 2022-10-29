@@ -1,6 +1,6 @@
 # LIV360SV - Jose Andrés Mejías Rojas
 
-## Run the project
+## Install dependencies
 
 ### Windows Command Prompt
 
@@ -9,6 +9,8 @@ py -3 -m venv virtual-env
 virtual-env\Scripts\activate
 py -m pip install -r requirements.txt
 ```
+
+## Run the project
 
 ## Other options
 
@@ -46,13 +48,11 @@ Existing open and crowd sourced street-level images predominately lack the quali
 
 We focused on sampling three areas of Liverpool with varying contexts over three different days: (1) City Centre (Jan 14th 2020) - areas characterised by shops and services; (2) North Liverpool (Jan 15th 2020) - areas contain high levels of deprivation; (3) South Liverpool (Jan 18th 2020) - areas include a mixture of affluent populations and diverse ethnic groups. We have uploaded our street level images to Mapillary, which can be viewed [here](https://www.mapillary.com/app/org/gdsl_uol?lat=53.39&lng=-2.9&z=11.72&tab=uploads). The images can be downloaded with [Mapillary Tools](https://github.com/mapillary/mapillary_tools) using the following command:
 
-````
-
+```
 mapillary_tools download --advanced --by_property key \
 --import_path dev/null \ --output_folder './LIV360SV' \
 --organization_keys 'I8xRsrajuHHQRf6cdDgDi5' \
 --user_name '<Insert Mapillary Username>'
-
 ```
 
 To date we have identified 10,106 advertisements within these data, manually classified as food (1335), alcohol (217), gambling (149) and other (8405). Download the dataset as a .zip archive from:
@@ -131,5 +131,7 @@ secondary GANs created data will enable the training of an effective model.
 [Placed_Ads_Using_GANs.zip](https://drive.google.com/file/d/1ETk7dgpuQN_ph3vP0X99EHFAiBjKeFoy/view?usp=sharing)<br>
 Filesize: 2.7 MB <br>
 md5sum: b2b2f0e04814fc363d24a86009ca40bb
+
 ```
-````
+
+```
