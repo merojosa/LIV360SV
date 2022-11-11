@@ -15,7 +15,7 @@ conda activate liv360sv-env
 
 ### CUDA 10.1
 
-https://developer.nvidia.com/cuda-10.1-download-archive-update2
+Download and install the .exe from this link: https://developer.nvidia.com/cuda-10.1-download-archive-update2
 
 ### Microsoft Visual C++ 14.0
 
@@ -43,6 +43,8 @@ pip install git+https://github.com/mapillary/seamseg.git
 ```
 
 ## Run the project
+
+WIP
 
 ### Preprocessing
 
