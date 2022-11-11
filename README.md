@@ -6,7 +6,7 @@ This repository was tested in Windows 11.
 
 ### Anaconda 3 with Python 3.7
 
-To install a [virtual environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands). Then, you execute the following commands to create and activate the respective enviroment:
+To install a [virtual environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands). Then, you execute the following commands to create and activate the respective environment:
 
 ```
 conda create -n liv360sv-env python=3.7
