@@ -1,32 +1,56 @@
 # LIV360SV - Jose Andrés Mejías Rojas
 
+This repository was tested in Windows 11.
+
 ## Install dependencies
 
-### Bash (Windows)
+### Anaconda 3 with Python 3.7
 
-You have to install `virtualenv`
+To install a [virtual environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands). Then, you execute the following commands to create and activate the respective enviroment:
 
 ```
-pip install virtualenv
+conda create -n liv360sv-env python=3.7
+conda activate liv360sv-env
 ```
 
-Then, run the following commands:
+### CUDA 10.1
 
-```bash
-py -m virtualenv virtual-env
-source virtual-env/Scripts/activate
-py -m pip install -r requirements.txt
+https://developer.nvidia.com/cuda-10.1-download-archive-update2
+
+### Microsoft Visual C++ 14.0
+
+Download the installer here: https://visualstudio.microsoft.com/visual-cpp-build-tools/
+
+And install Visual Studio Community 2019 with the C++ package:
+
+![Visual Studio Community 2019](./img/readme1.png)
+![C++ package](./img/readme2.png)
+
+### PyTorch 1.1.0
+
+According to the [documentation](https://pytorch.org/get-started/previous-versions/), just run the following command:
+
+```
+conda install pytorch==1.1.0 torchvision==0.3.0 cudatoolkit=10.0 -c pytorch
+```
+
+### Seamless Scene Segmentation
+
+Execute the following command:
+
+```
+pip install git+https://github.com/mapillary/seamseg.git
 ```
 
 ## Run the project
 
+### Preprocessing
+
+```
+python preprocess.py
+```
+
 ## Other options
-
-### Desactive the environment
-
-```
-deactivate
-```
 
 ### Generate requirements.txt with the required packages
 
